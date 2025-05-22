@@ -3,10 +3,10 @@ class Sound
 {
 public:
 	Sound(double duration, double sampleRate);
-	virtual float getSample(int index) = 0;
+	virtual float getSample(int index) const = 0;
 protected:
-	float sampleRate;
-	double duration;
-	int numOfSamples;
+	const float sampleRate;
+	const double duration;
+	const int numOfSamples;
 };
 

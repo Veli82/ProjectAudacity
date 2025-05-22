@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AIFFSound.cpp" />
+    <ClCompile Include="Amplify.cpp" />
     <ClCompile Include="EffectSound.cpp" />
     <ClCompile Include="FileSound.cpp" />
     <ClCompile Include="GeneratedSound.cpp" />
+    <ClCompile Include="HighPassFilter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Silence.cpp" />
     <ClCompile Include="Sound.cpp" />
@@ -138,11 +140,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIFFSound.h" />
+    <ClInclude Include="Amplify.h" />
     <ClInclude Include="EffectSound.h" />
     <ClInclude Include="FileSound.h" />
     <ClInclude Include="GeneratedSound.h" />
+    <ClInclude Include="HighPassFilter.h" />
     <ClInclude Include="Silence.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundChunk.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="WAVSound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
