@@ -1,8 +1,8 @@
 #include "Sound.h"
 #include <stdexcept>
 
-Sound::Sound(double duration, double sampleRate)
-	:duration(duration), sampleRate(sampleRate), numOfSamples(duration* sampleRate)
+Sound::Sound(double duration, unsigned sampleRate)
+	:duration(duration), sampleRate(sampleRate), numOfSamples(duration * sampleRate)
 {
 	if (duration < 0)
 	{

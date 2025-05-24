@@ -2,11 +2,12 @@
 class Sound
 {
 public:
-	Sound(double duration, double sampleRate);
-	virtual float getSample(int index) const = 0;
+	Sound(double duration, unsigned sampleRate);
+	virtual float getSample(int index) = 0;
+	//napravi oshte getteri?
 protected:
-	const float sampleRate;
-	const double duration;
-	const int numOfSamples;
+	unsigned sampleRate;
+	double duration;
+	unsigned numOfSamples;
 };
 

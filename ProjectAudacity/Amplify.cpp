@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-Amplify::Amplify(double duration, double sampleRate, const std::vector<SoundChunk>& baseSounds, float decibels)
+Amplify::Amplify(double duration, unsigned sampleRate, const std::vector<SoundChunk>& baseSounds, float decibels)
     : EffectSound(duration, sampleRate, baseSounds), ampDecibels(decibels), ampFactor(std::pow(10, ampDecibels / 20))
 {
 }

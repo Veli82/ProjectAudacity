@@ -1,1 +1,134 @@
-#include "WavSound.h"
+#include "WAVSound.h"
+#include <cstring>
+#include <iostream> //mahni posle
+#include <cmath>
+
+//try to split the functionalities into multiple functions!
+
+struct WAVHeader {
+    char riffHeader[4];
+    int fileSize;       
+    char waveHeader[4];
+
+    char fmtHeader[4];
+    int fmtChunkSize;
+    short audioFormat;
+    short numChannels;
+    int sampleRate; 
+    int byteRate;
+    short blockAlign;
+    short bitsPerSample;
+};
+
+//debug
+void print(std::ifstream& reader, int size)
+{
+    char byte;
+    reader.seekg(0, std::ios::beg);
+    for (int i = 0; i < size; i++)
+    {
+        reader.read((char*)&byte, 1);
+        std::cout << (int)byte << ' ';
+    }
+}
+
+
+WAVSound::WAVSound(const std::string& filePath)
+    :FileSound(filePath)
+{
+    WAVHeader header;
+    reader.read((char*)&header, sizeof(header));
+    //is it nessesary?
+    if (reader.fail())
+    {
+        throw std::runtime_error("Error! Could not read from this file.");
+    }
+
+    //validation and assignment
+    if (strncmp(header.riffHeader, "RIFF", 4) ||
+        strncmp(header.waveHeader, "WAVE", 4) ||
+        strncmp(header.fmtHeader, "fmt ", 4) ||
+        header.sampleRate <= 0 ||
+        header.bitsPerSample <= 0 || 
+        header.bitsPerSample % 8 != 0 || 
+        header.blockAlign != header.numChannels * header.bitsPerSample / 8)
+    {
+        throw std::runtime_error("File is not in the right format.");
+    }
+    if (header.audioFormat != 1)
+    {
+        throw std::runtime_error("Audio compression is not supported.");
+    }
+    if (header.numChannels == 1)
+    {
+        isStereo = false;
+    }
+    else if (header.numChannels == 2)
+    {
+        isStereo = true;
+    }
+    else
+    {
+        throw std::runtime_error("Only Mono and Stereo audio is supported.");
+    }
+
+    blockAlign = header.blockAlign;
+    bitsPerSample = header.bitsPerSample;
+    sampleRate = header.sampleRate;
+
+
+    char buffer[4];
+    int size = 0;
+    reader.read(buffer, 4);
+    reader.read((char*)&size, 4);
+
+    //searching for data block
+    while (strncmp(buffer, "data", 4))
+    {
+        reader.seekg(size, std::ios::cur);
+        reader.read(buffer, 4);
+        reader.read((char*)&size, 4);
+    }
+
+    numOfSamples = size / (header.numChannels * bitsPerSample / 8);
+    duration = (double)numOfSamples / sampleRate;
+
+    firstSamplePos = reader.tellg();  
+}
+
+float WAVSound::getSample(int index)
+{
+    //make input validation
+
+    short sample1 = 0;
+    short sample2 = 0;
+    short result;
+    reader.seekg(firstSamplePos + index * blockAlign);
+    reader.read((char*)&sample1, bitsPerSample / 8);
+    if (isStereo)
+    {
+        reader.read((char*)&sample2, bitsPerSample/8);
+        result = (sample1 + sample2) / 2;
+    }
+    else
+    {
+        result = sample1;
+    }
+
+
+    if (reader.fail())
+    {
+        throw std::runtime_error(std::string("Error! Could not read from file: ") + filePath);    //test this
+    }
+
+
+    if (bitsPerSample == 8)
+    {
+         return (result - 128) / 128.0f;
+    }
+    else
+    {
+        return result / std::pow(2, bitsPerSample-1);
+    }    
+}
+

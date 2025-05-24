@@ -1,10 +1,10 @@
 #include "EffectSound.h"
 
-EffectSound::EffectSound(double duration, double sampleRate, const std::vector<SoundChunk>& baseSounds)
+EffectSound::EffectSound(double duration, unsigned sampleRate, const std::vector<SoundChunk>& baseSounds)
 	:Sound(duration, sampleRate), baseSounds(baseSounds)
 { }
 
-float EffectSound::getSample(int index) const
+float EffectSound::getSample(int index)
 {//make input validation!
 	return applyEffect(getSampleFromBase(index));
 }

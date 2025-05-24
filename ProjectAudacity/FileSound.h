@@ -1,22 +1,24 @@
 #pragma once
 #include "Sound.h"
 #include <string>
+#include <fstream>
 
 
 class FileSound : public Sound
 {
-	std::string getFilePath() const;	//shoud there be a reference?
-	std::string getFileType() const;
+public:
+	~FileSound();
+
+const std::string& getFilePath() const;
 
 protected:
-	std::string filePath;
-	enum class FileType
-	{
-		wav,
-		aiff
-	} fileType;
+	FileSound(const std::string& filePath);		//there shouldnt be objects of this class in the wild
 
-	//.wav
-	//.AIFF
+	std::string filePath;
+	std::ifstream reader;
+	bool isStereo;
+	unsigned blockAlign;
+	unsigned bitsPerSample;		//bitDepth
+	int firstSamplePos;
 };
 
