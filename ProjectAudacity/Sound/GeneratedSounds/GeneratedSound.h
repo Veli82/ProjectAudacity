@@ -1,5 +1,5 @@
 #pragma once
-#include "Sound.h"
+#include "../Sound.h"
 
 class GeneratedSound : public Sound
 {
@@ -10,3 +10,11 @@ protected:
 	void setAmplitude(float& destination, float amplitude);
 	void setWaveFrequency(int& destination, int frequency);
 };
+
+/*
+*class RepeatedSound : public Sound
+{
+
+
+}
+*/

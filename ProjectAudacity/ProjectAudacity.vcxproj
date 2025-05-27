@@ -127,38 +127,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AIFFSound.cpp" />
-    <ClCompile Include="Amplify.cpp" />
-    <ClCompile Include="Chirp.cpp" />
-    <ClCompile Include="EffectSound.cpp" />
-    <ClCompile Include="FileSound.cpp" />
-    <ClCompile Include="GeneratedSound.cpp" />
-    <ClCompile Include="HighPassFilter.cpp" />
+    <ClCompile Include="Sound\FileSounds\AIFFSound.cpp" />
+    <ClCompile Include="Sound\EffectSounds\Amplify.cpp" />
+    <ClCompile Include="Sound\GeneratedSounds\Chirp.cpp" />
+    <ClCompile Include="Sound\EffectSounds\EffectSound.cpp" />
+    <ClCompile Include="Sound\FileSounds\FileSound.cpp" />
+    <ClCompile Include="Sound\GeneratedSounds\GeneratedSound.cpp" />
+    <ClCompile Include="Sound\EffectSounds\HighPassFilter.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Silence.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="Tone.cpp" />
-    <ClCompile Include="WAVSound.cpp" />
-    <ClCompile Include="WhiteNoise.cpp" />
+    <ClCompile Include="Sound\Silence\Silence.cpp" />
+    <ClCompile Include="Sound\Sound.cpp" />
+    <ClCompile Include="Sound\GeneratedSounds\Tone.cpp" />
+    <ClCompile Include="Sound\FileSounds\WAVSound.cpp" />
+    <ClCompile Include="Sound\GeneratedSounds\WhiteNoise.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIFFSound.h" />
-    <ClInclude Include="Amplify.h" />
-    <ClInclude Include="Chirp.h" />
-    <ClInclude Include="EffectSound.h" />
-    <ClInclude Include="FileSound.h" />
-    <ClInclude Include="GeneratedSound.h" />
-    <ClInclude Include="HighPassFilter.h" />
-    <ClInclude Include="Silence.h" />
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="SoundChunk.h" />
-    <ClInclude Include="Tone.h" />
+    <ClInclude Include="Sound\FileSounds\AIFFSound.h" />
+    <ClInclude Include="Sound\EffectSounds\Amplify.h" />
+    <ClInclude Include="Sound\GeneratedSounds\Chirp.h" />
+    <ClInclude Include="Sound\EffectSounds\EffectSound.h" />
+    <ClInclude Include="Sound\FileSounds\FileSound.h" />
+    <ClInclude Include="Sound\GeneratedSounds\GeneratedSound.h" />
+    <ClInclude Include="Sound\EffectSounds\HighPassFilter.h" />
+    <ClInclude Include="Sound\Silence\Silence.h" />
+    <ClInclude Include="Sound\Sound.h" />
+    <ClInclude Include="Sound\SoundChunk.h" />
+    <ClInclude Include="Sound\GeneratedSounds\Tone.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="WAVSound.h" />
-    <ClInclude Include="WhiteNoise.h" />
+    <ClInclude Include="Sound\FileSounds\WAVSound.h" />
+    <ClInclude Include="Sound\GeneratedSounds\WhiteNoise.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="test.dat" />
+    <None Include="res\test.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

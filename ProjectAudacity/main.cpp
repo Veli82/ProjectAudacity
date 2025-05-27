@@ -7,6 +7,11 @@
 #include "WhiteNoise.h"
 #include "Chirp.h"
 
+class A
+{
+
+};
+
 
 
 int main()
@@ -16,4 +21,7 @@ int main()
 
 	//WAVSound sound("test.dat");
 	//Chirp chirp(3, 44100, 0.5, 440, 1000);
+
+
+	
 }

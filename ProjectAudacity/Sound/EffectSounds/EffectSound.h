@@ -1,6 +1,6 @@
 #pragma once
-#include "Sound.h"
-#include "SoundChunk.h"
+#include "../Sound.h"
+#include "../SoundChunk.h"
 
 #include <vector>
 

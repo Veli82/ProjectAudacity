@@ -1,5 +1,5 @@
 #pragma once
-#include "Sound.h"
+#include "../Sound.h"
 #include <string>
 #include <fstream>
 

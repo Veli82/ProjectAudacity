@@ -18,89 +18,89 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
+    <ClCompile Include="Sound\Sound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileSound.cpp">
+    <ClCompile Include="Sound\FileSounds\FileSound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Silence.cpp">
+    <ClCompile Include="Sound\Silence\Silence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EffectSound.cpp">
+    <ClCompile Include="Sound\EffectSounds\EffectSound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedSound.cpp">
+    <ClCompile Include="Sound\GeneratedSounds\GeneratedSound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WAVSound.cpp">
+    <ClCompile Include="Sound\FileSounds\WAVSound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AIFFSound.cpp">
+    <ClCompile Include="Sound\FileSounds\AIFFSound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HighPassFilter.cpp">
+    <ClCompile Include="Sound\EffectSounds\HighPassFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Amplify.cpp">
+    <ClCompile Include="Sound\EffectSounds\Amplify.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tone.cpp">
+    <ClCompile Include="Sound\GeneratedSounds\Tone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WhiteNoise.cpp">
+    <ClCompile Include="Sound\GeneratedSounds\WhiteNoise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Chirp.cpp">
+    <ClCompile Include="Sound\GeneratedSounds\Chirp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sound.h">
+    <ClInclude Include="Sound\Sound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileSound.h">
+    <ClInclude Include="Sound\FileSounds\FileSound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Silence.h">
+    <ClInclude Include="Sound\Silence\Silence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EffectSound.h">
+    <ClInclude Include="Sound\EffectSounds\EffectSound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedSound.h">
+    <ClInclude Include="Sound\GeneratedSounds\GeneratedSound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WAVSound.h">
+    <ClInclude Include="Sound\FileSounds\WAVSound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AIFFSound.h">
+    <ClInclude Include="Sound\FileSounds\AIFFSound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundChunk.h">
+    <ClInclude Include="Sound\SoundChunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HighPassFilter.h">
+    <ClInclude Include="Sound\EffectSounds\HighPassFilter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Amplify.h">
+    <ClInclude Include="Sound\EffectSounds\Amplify.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tone.h">
+    <ClInclude Include="Sound\GeneratedSounds\Tone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WhiteNoise.h">
+    <ClInclude Include="Sound\GeneratedSounds\WhiteNoise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Chirp.h">
+    <ClInclude Include="Sound\GeneratedSounds\Chirp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="test.dat">
+    <None Include="res\test.dat">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
