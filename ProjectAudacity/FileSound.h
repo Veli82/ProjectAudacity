@@ -8,12 +8,12 @@ class FileSound : public Sound
 {
 public:
 	~FileSound();
+	//i think mby i shoud rewrite copy c-tor and op=? (because ifstream object cant be copied implicitly)
 
 const std::string& getFilePath() const;
+	FileSound(const std::string& filePath);
 
 protected:
-	FileSound(const std::string& filePath);		//there shouldnt be objects of this class in the wild
-
 	std::string filePath;
 	std::ifstream reader;
 	bool isStereo;

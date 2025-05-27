@@ -1,9 +1,12 @@
 #include "HighPassFilter.h"
 
-HighPassFilter::HighPassFilter(double duration, unsigned sampleRate, const std::vector<SoundChunk>& baseSounds, int cutOffFreq)
+const float PI = 3.1415927f;
+
+//opravi go malko tova, polzvam cmath za pi, smeni imeto na alpha
+HighPassFilter::HighPassFilter(double duration, int sampleRate, const std::vector<SoundChunk>& baseSounds, int cutOffFreq)
     :EffectSound(duration, sampleRate, baseSounds), cutOffFreq(cutOffFreq)
 {
-    alpha = sampleRate / (sampleRate + 2 * 3.14 * cutOffFreq);
+    alpha = (float)sampleRate / (sampleRate + 2 * PI * cutOffFreq);
     lastInputSample = getSampleFromBase(0);
     lastOutputSample = lastInputSample;     //default values for the first applyEffect() call
 }

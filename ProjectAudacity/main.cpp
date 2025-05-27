@@ -1,8 +1,19 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+
 #include "WAVSound.h"
+#include "Tone.h"
+#include "WhiteNoise.h"
+#include "Chirp.h"
+
+
 
 int main()
 {
-	WAVSound sound("test.dat");
-	std::cout << sound.getSample(1) << ' ' << sound.getSample(1) << ' ' << sound.getSample(2) << ' ' << sound.getSample(6);
+	//setup random
+	std::srand(std::time(0));
+
+	//WAVSound sound("test.dat");
+	//Chirp chirp(3, 44100, 0.5, 440, 1000);
 }

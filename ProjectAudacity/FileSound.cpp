@@ -1,7 +1,7 @@
 #include "FileSound.h"
 #include <stdexcept>
 
-FileSound::FileSound(const std::string& filePath)
+FileSound::FileSound(const std::string& filePath)   //there cant be objects from this abstract class so the error shouldnt be worrying
     :Sound(0, 0), filePath(filePath)
 {
     reader.open(filePath, std::ios::binary);

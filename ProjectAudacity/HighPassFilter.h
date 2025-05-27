@@ -4,7 +4,7 @@
 class HighPassFilter : public EffectSound
 {
 public:
-	HighPassFilter(double duration, unsigned sampleRate, const std::vector<SoundChunk>& baseSounds, int cutOffFreq);
+	HighPassFilter(double duration, int sampleRate, const std::vector<SoundChunk>& baseSounds, int cutOffFreq);
 protected:
 	float applyEffect(float sample) override;
 
