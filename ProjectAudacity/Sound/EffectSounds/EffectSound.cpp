@@ -1,10 +1,10 @@
 #include "EffectSound.h"
 
-EffectSound::EffectSound(double duration, int sampleRate, const std::vector<SoundChunk>& baseSounds)
+EffectSound::EffectSound(float duration, int sampleRate, const std::vector<SoundChunk>& baseSounds)
 	:Sound(duration, sampleRate), baseSounds(baseSounds)
 { }
 
-float EffectSound::getSample(int index)
+float EffectSound::getSample(int index) const
 {
 	validateIndex(index);
 	return applyEffect(getSampleFromBase(index));
@@ -16,13 +16,14 @@ float EffectSound::getSampleFromBase(int index) const
 
 	for (int i = 0; i < baseSounds.size(); i++)
 	{
-		if (index < baseSounds[i].numofSamples)
+		int chunkSize = baseSounds[i].getNumOfSamples();
+		if (index < chunkSize)
 		{
-			return baseSounds[i].sound->getSample(baseSounds[i].startSample + index);
+			return baseSounds[i].getSample(index);
 		}
 		else
 		{
-			index -= baseSounds[i].numofSamples;
+			index -= chunkSize;
 		}
 	}
 }

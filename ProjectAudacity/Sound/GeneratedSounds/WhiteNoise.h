@@ -4,8 +4,8 @@
 class WhiteNoise : public GeneratedSound
 {
 public:
-	WhiteNoise(double duration, int sampleRate, float amplitude);
-	float getSample(int index) override;
+	WhiteNoise(float duration, int sampleRate, float amplitude);
+	float getSample(int index) const override;
 protected:
 	float amplitude;
 };

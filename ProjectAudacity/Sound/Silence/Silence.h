@@ -4,7 +4,7 @@
 class Silence : public Sound
 {
 public:
-	Silence(double duration, int sampleRate);
-	float getSample(int index) override;
+	Silence(float duration, int sampleRate);
+	float getSample(int index) const override;
 };
 

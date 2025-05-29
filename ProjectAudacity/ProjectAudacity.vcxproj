@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sound\GeneratedSounds\RepeatedSound.cpp" />
     <ClCompile Include="Sound\FileSounds\AIFFSound.cpp" />
     <ClCompile Include="Sound\EffectSounds\Amplify.cpp" />
     <ClCompile Include="Sound\GeneratedSounds\Chirp.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="Sound\GeneratedSounds\WhiteNoise.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sound\GeneratedSounds\RepeatedSound.h" />
     <ClInclude Include="Sound\FileSounds\AIFFSound.h" />
     <ClInclude Include="Sound\EffectSounds\Amplify.h" />
     <ClInclude Include="Sound\GeneratedSounds\Chirp.h" />

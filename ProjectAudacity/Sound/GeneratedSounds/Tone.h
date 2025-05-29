@@ -4,8 +4,8 @@
 class Tone : public GeneratedSound
 {
 public:
-	Tone(double duration, int sampleRate, int waveFrequency, float amplitude);
-	float getSample(int index) override;
+	Tone(float duration, int sampleRate, int waveFrequency, float amplitude);
+	float getSample(int index) const override;
 protected:
 	float amplitude;
 	int waveFrequency;

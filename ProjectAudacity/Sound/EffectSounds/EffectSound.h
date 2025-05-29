@@ -7,12 +7,12 @@
 class EffectSound : public Sound
 {
 public:
-	EffectSound(double duration, int sampleRate,const std::vector<SoundChunk>& baseSounds);
-	float getSample(int index) override;
+	EffectSound(float duration, int sampleRate,const std::vector<SoundChunk>& baseSounds);
+	float getSample(int index) const override;
 protected:
 	const std::vector<SoundChunk> baseSounds;
 
 	float getSampleFromBase(int index) const;
-	virtual float applyEffect(float sample) = 0;
+	virtual float applyEffect(float sample) const = 0;
 };
 

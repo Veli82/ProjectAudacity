@@ -19,10 +19,10 @@ AIFFSound::AIFFSound(const std::string& filePath)
     :FileSound(filePath)
 {
     AIFFHeader header;
-    reader.read((char*)&header, sizeof(header));
+    reader->read((char*)&header, sizeof(header));
 
     //is it nessesary?
-    if (reader.fail())
+    if (reader->fail())
     {
         throw std::runtime_error("Error! Could not read from this file.");
     }
@@ -35,7 +35,8 @@ AIFFSound::AIFFSound(const std::string& filePath)
     }
 }
 
-float AIFFSound::getSample(int index)
+float AIFFSound::getSample(int index) const
 {
+    validateIndex(index);
     return 0.0f;
 }

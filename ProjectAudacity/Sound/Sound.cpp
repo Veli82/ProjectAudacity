@@ -1,13 +1,28 @@
 #include "Sound.h"
 #include <stdexcept>
 
-Sound::Sound(double duration, int sampleRate)
+Sound::Sound(float duration, int sampleRate)
 	:duration(duration), sampleRate(sampleRate), numOfSamples(duration * sampleRate)
 {
 	validateDurationAndSampleRate(duration, sampleRate);
 }
 
-void Sound::validateIndex(int index)
+unsigned Sound::getSampleRate() const
+{
+	return sampleRate;
+}
+
+float Sound::getDuration() const
+{
+	return duration;
+}
+
+unsigned Sound::getNumOfSamples() const
+{
+	return numOfSamples;
+}
+
+void Sound::validateIndex(int index) const
 {
 	if (index < 0 || index >= numOfSamples)
 	{
@@ -17,7 +32,7 @@ void Sound::validateIndex(int index)
 
 void Sound::validateDurationAndSampleRate(double duration, int sampleRate)
 {
-	if (duration < 0 || sampleRate <= 0 )	//maybe improve in the future?
+	if (duration < 0 || sampleRate <= 0 )	//definetly improve in the future?
 	{
 		throw std::runtime_error("Passed invalid Sound input");
 	}

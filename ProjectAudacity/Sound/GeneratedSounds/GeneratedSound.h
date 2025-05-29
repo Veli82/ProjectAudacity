@@ -4,7 +4,7 @@
 class GeneratedSound : public Sound
 {
 public:
-	GeneratedSound(double duration, int sampleRate);
+	GeneratedSound(float duration, int sampleRate);
 
 protected:
 	void setAmplitude(float& destination, float amplitude);

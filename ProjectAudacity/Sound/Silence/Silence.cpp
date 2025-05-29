@@ -1,10 +1,10 @@
 #include "Silence.h"
 
-Silence::Silence(double duration, int sampleRate)
+Silence::Silence(float duration, int sampleRate)
     :Sound(duration, sampleRate)
 { }
 
-float Silence::getSample(int index)
+float Silence::getSample(int index) const
 {
     validateIndex(index);
 

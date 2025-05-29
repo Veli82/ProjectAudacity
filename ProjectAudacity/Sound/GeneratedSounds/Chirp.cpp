@@ -3,7 +3,7 @@
 
 const float PI = 3.1415927f;
 
-Chirp::Chirp(double duration, int sampleRate, float amplitude, int freqStart, int freqEnd)
+Chirp::Chirp(float duration, int sampleRate, float amplitude, int freqStart, int freqEnd)
 	:GeneratedSound(duration, sampleRate)
 {
 	setAmplitude(this->amplitude, amplitude);
@@ -13,7 +13,7 @@ Chirp::Chirp(double duration, int sampleRate, float amplitude, int freqStart, in
 	freqSlope = (freqEnd - freqStart) / duration;
 }
 
-float Chirp::getSample(int index)
+float Chirp::getSample(int index) const
 {
 	float t = (float)index / sampleRate;
 	return amplitude * std::sin(2.0f * PI * (freqStart * t + 0.5f * freqSlope * t * t));

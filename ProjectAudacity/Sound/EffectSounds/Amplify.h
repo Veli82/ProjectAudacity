@@ -4,9 +4,9 @@
 class Amplify : public EffectSound
 {
 public:
-	Amplify(double duration, int sampleRate, const std::vector<SoundChunk>& baseSounds, float decibels);
+	Amplify(float duration, int sampleRate, const std::vector<SoundChunk>& baseSounds, float decibels);
 protected:
-	float applyEffect(float sample) override;
+	float applyEffect(float sample) const override;
 
 	const float ampDecibels;
 	const float ampFactor;

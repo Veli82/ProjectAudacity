@@ -4,8 +4,8 @@
 class Chirp : public GeneratedSound
 {
 public:
-	Chirp(double duration, int sampleRate, float amplitude, int freqStart, int freqEnd);
-	float getSample(int index) override;
+	Chirp(float duration, int sampleRate, float amplitude, int freqStart, int freqEnd);
+	float getSample(int index) const override;
 protected:
 	float amplitude;
 	int freqStart;

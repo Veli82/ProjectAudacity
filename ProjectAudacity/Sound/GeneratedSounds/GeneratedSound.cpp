@@ -1,7 +1,7 @@
 #include "GeneratedSound.h"
 #include <stdexcept>
 
-GeneratedSound::GeneratedSound(double duration, int sampleRate)
+GeneratedSound::GeneratedSound(float duration, int sampleRate)
 	:Sound(duration, sampleRate)
 { }
 
