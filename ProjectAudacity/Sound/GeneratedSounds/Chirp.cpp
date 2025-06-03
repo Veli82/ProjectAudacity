@@ -15,6 +15,7 @@ Chirp::Chirp(float duration, int sampleRate, float amplitude, int freqStart, int
 
 float Chirp::getSample(int index) const
 {
+	validateIndex(index);
 	float t = (float)index / sampleRate;
 	return amplitude * std::sin(2.0f * PI * (freqStart * t + 0.5f * freqSlope * t * t));
 }

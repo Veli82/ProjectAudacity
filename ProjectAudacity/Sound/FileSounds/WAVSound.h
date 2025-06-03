@@ -7,7 +7,6 @@ public:
 	WAVSound(const std::string& filePath);
 
 	float getSample(int index) const override;
-protected:
 
 };
 

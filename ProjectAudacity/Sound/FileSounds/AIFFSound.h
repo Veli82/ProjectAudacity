@@ -3,9 +3,9 @@
 
 class AIFFSound : public FileSound
 {
-public:
-	AIFFSound(const std::string& filePath);
-
-	float getSample(int index) const override;
+//public:
+//	AIFFSound(const std::string& filePath);
+//
+//	float getSample(int index) const override;
 };
 

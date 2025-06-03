@@ -8,8 +8,7 @@ public:
 protected:
 	float applyEffect(float sample) const override;
 
-	const float ampDecibels;
-	const float ampFactor;
-
+	float ampDecibels;
+	float ampFactor;
 };
 

@@ -10,11 +10,3 @@ protected:
 	void setAmplitude(float& destination, float amplitude);
 	void setWaveFrequency(int& destination, int frequency);
 };
-
-/*
-*class RepeatedSound : public Sound
-{
-
-
-}
-*/

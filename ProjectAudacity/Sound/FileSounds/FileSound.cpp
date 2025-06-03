@@ -4,22 +4,41 @@
 FileSound::FileSound(const std::string& filePath)   //there cant be objects from this abstract class so the error shouldnt be worrying
     :Sound(0, 0), filePath(filePath)
 {
-    reader = new std::ifstream(filePath, std::ios::binary);
-    if (!reader->is_open())
+    reader.open(filePath, std::ios::binary);
+    if (!reader.is_open())
     {
-        delete reader;
         throw std::runtime_error("Could not open file!");
     }
 
 }
 
-FileSound::~FileSound()
+FileSound::FileSound(const FileSound& other)
+    :Sound(other.duration, other.sampleRate), filePath(other.filePath), isStereo(other.isStereo),
+    blockAlign(other.blockAlign), bitsPerSample(other.bitsPerSample), firstSamplePos(other.firstSamplePos)
 {
-    reader->close();
-    delete reader;
+    reader.open(filePath, std::ios::binary);
+    if (!reader.is_open())
+    {
+        throw std::runtime_error("Could not open file!");
+    }
 }
 
 const std::string& FileSound::getFilePath() const
 {
     return filePath;
+}
+
+bool FileSound::isItStereo() const
+{
+    return isStereo;
+}
+
+unsigned FileSound::getBlockAlign() const
+{
+    return blockAlign;
+}
+
+unsigned FileSound::getBitsPerSample() const
+{
+    return bitsPerSample;
 }

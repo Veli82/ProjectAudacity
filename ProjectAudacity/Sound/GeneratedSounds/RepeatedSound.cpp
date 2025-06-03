@@ -13,7 +13,8 @@ RepeatedSound::RepeatedSound(int sampleRate, Sound* soundToRepeat, int timesRepe
 }
 
 float RepeatedSound::getSample(int index) const
-{ //make validation
+{ 
+    validateIndex(index);
     int sampleToGet = index % soundToRepeat->getNumOfSamples();
     return soundToRepeat->getSample(sampleToGet);
 }

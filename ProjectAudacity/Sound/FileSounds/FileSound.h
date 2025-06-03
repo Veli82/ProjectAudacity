@@ -8,14 +8,18 @@ class FileSound : public Sound
 {
 public:
 	FileSound(const std::string& filePath);
-	~FileSound();
-	//i think mby i shoud rewrite copy c-tor and op=? (because ifstream object cant be copied implicitly)
+	FileSound(const FileSound& other);
+	FileSound& operator=(const FileSound& other) = delete;
 
-const std::string& getFilePath() const;
+	const std::string& getFilePath() const;
+	bool isItStereo() const;
+	unsigned getBlockAlign() const;
+	unsigned getBitsPerSample() const;
+
 
 protected:
 	std::string filePath;
-	std::ifstream* reader;
+	mutable std::ifstream reader;
 	bool isStereo;
 	unsigned blockAlign;
 	unsigned bitsPerSample;		//bitDepth

@@ -141,6 +141,7 @@
     <ClCompile Include="Sound\GeneratedSounds\Tone.cpp" />
     <ClCompile Include="Sound\FileSounds\WAVSound.cpp" />
     <ClCompile Include="Sound\GeneratedSounds\WhiteNoise.cpp" />
+    <ClCompile Include="Track\Track.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound\GeneratedSounds\RepeatedSound.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Sound\Sound.h" />
     <ClInclude Include="Sound\SoundChunk.h" />
     <ClInclude Include="Sound\GeneratedSounds\Tone.h" />
+    <ClInclude Include="Track\Track.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Sound\FileSounds\WAVSound.h" />
     <ClInclude Include="Sound\GeneratedSounds\WhiteNoise.h" />

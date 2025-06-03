@@ -14,5 +14,6 @@ Tone::Tone(float duration, int sampleRate, int waveFrequency, float amplitude)
 
 float Tone::getSample(int index) const
 {
+    validateIndex(index);
     return amplitude * std::sin(2.0f * PI * waveFrequency * ((float)index / sampleRate));
 }

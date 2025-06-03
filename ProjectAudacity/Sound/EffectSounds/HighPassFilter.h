@@ -8,7 +8,7 @@ public:
 protected:
 	float applyEffect(float sample) const override;	//v momenta ne raboti
 
-	const int cutOffFreq;
+	int cutOffFreq;
 	float alpha;
 
 	//cache

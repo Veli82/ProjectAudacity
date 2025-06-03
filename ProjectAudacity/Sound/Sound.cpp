@@ -7,7 +7,7 @@ Sound::Sound(float duration, int sampleRate)
 	validateDurationAndSampleRate(duration, sampleRate);
 }
 
-unsigned Sound::getSampleRate() const
+int Sound::getSampleRate() const
 {
 	return sampleRate;
 }
@@ -17,7 +17,7 @@ float Sound::getDuration() const
 	return duration;
 }
 
-unsigned Sound::getNumOfSamples() const
+int Sound::getNumOfSamples() const
 {
 	return numOfSamples;
 }
@@ -32,7 +32,7 @@ void Sound::validateIndex(int index) const
 
 void Sound::validateDurationAndSampleRate(double duration, int sampleRate)
 {
-	if (duration < 0 || sampleRate <= 0 )	//definetly improve in the future?
+	if (duration < 0 || sampleRate <= 0 )	//definetly improve in the future?	//add constraints relative to the INT_MAX value!
 	{
 		throw std::runtime_error("Passed invalid Sound input");
 	}
