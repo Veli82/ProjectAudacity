@@ -16,7 +16,7 @@ public:
 	int getNumOfSamples() const;
 	
 protected:
-	int sampleRate;		
+	int sampleRate;
 	float duration;
 	int numOfSamples;
 

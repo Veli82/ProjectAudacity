@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Project\Project.cpp" />
     <ClCompile Include="Sound\GeneratedSounds\RepeatedSound.cpp" />
     <ClCompile Include="Sound\FileSounds\AIFFSound.cpp" />
     <ClCompile Include="Sound\EffectSounds\Amplify.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Track\Track.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Project\Project.h" />
     <ClInclude Include="Sound\GeneratedSounds\RepeatedSound.h" />
     <ClInclude Include="Sound\FileSounds\AIFFSound.h" />
     <ClInclude Include="Sound\EffectSounds\Amplify.h" />

@@ -1,12 +1,23 @@
 	#pragma once
 #include "Sound.h"
 #include <stdexcept>
+#include <cmath>
 
 //Proxy class
 class SoundChunk
 {
 public:
-	SoundChunk(Sound& sound, int startSample, int endSample)
+
+	SoundChunk(const Sound& sound)
+		:sound(sound)
+	{
+		this->startSample = 0;
+		this->endSample = sound.getNumOfSamples() - 1;
+		this->numOfSamples = sound.getNumOfSamples();
+	}
+
+
+	SoundChunk(const Sound& sound, int startSample, int endSample)
 		:sound(sound)
 	{
 		if (startSample < 0 || endSample < 0 || endSample < startSample || endSample >= sound.getNumOfSamples())
@@ -15,7 +26,16 @@ public:
 		}
 		this->startSample = startSample;
 		this->endSample = endSample;
-		this->numOfSamples = endSample - startSample;
+		this->numOfSamples = endSample - startSample + 1;
+	}
+
+	//FIX
+	SoundChunk operator=(const SoundChunk& other)
+	{
+		//sound = other.sound;	:(((((
+		this->startSample = other.startSample;
+		this->endSample = other.endSample;
+		this->numOfSamples = other.numOfSamples;
 	}
 
 	float getSample(int index) const
@@ -32,8 +52,19 @@ public:
 		return numOfSamples;
 	}
 
+	void setStart(int sampleIndex)
+	{
+		startSample += sampleIndex;
+		numOfSamples += sampleIndex;
+	}
+	void setEnd(int sampleIndex)
+	{
+		numOfSamples -= endSample - startSample + sampleIndex;
+		endSample = startSample + sampleIndex;
+	}
+
 private:
-	Sound& sound;			//make ref
+	const Sound& sound;		//off napravi go s pointer atp
 	int startSample;
 	int endSample;
 	int numOfSamples;

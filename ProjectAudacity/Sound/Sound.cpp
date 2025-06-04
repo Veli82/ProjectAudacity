@@ -32,7 +32,7 @@ void Sound::validateIndex(int index) const
 
 void Sound::validateDurationAndSampleRate(double duration, int sampleRate)
 {
-	if (duration < 0 || sampleRate <= 0 )	//definetly improve in the future?	//add constraints relative to the INT_MAX value!
+	if (duration < 0 || sampleRate <= 0 || numOfSamples > INT_MAX)
 	{
 		throw std::runtime_error("Passed invalid Sound input");
 	}

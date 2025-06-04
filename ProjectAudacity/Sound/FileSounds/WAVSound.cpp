@@ -38,10 +38,10 @@ WAVSound::WAVSound(const std::string& filePath)
 {
     //read header
     WAVHeader header;
-    reader->read((char*)&header, sizeof(header));
+    reader.read((char*)&header, sizeof(header));
 
     //is it nessesary?
-    if (reader->fail())
+    if (reader.fail())
     {
         throw std::runtime_error("Error! Could not read from this file.");
     }
@@ -86,22 +86,22 @@ WAVSound::WAVSound(const std::string& filePath)
     //searching for data chunk
     char buffer[4];
     int size = 0;
-    reader->read(buffer, 4);
-    reader->read((char*)&size, 4);
+    reader.read(buffer, 4);
+    reader.read((char*)&size, 4);
 
     //skipping if not data chunk
     while (strncmp(buffer, "data", 4))
     {
-        reader->seekg(size, std::ios::cur);
-        reader->read(buffer, 4);
-        reader->read((char*)&size, 4);
+        reader.seekg(size, std::ios::cur);
+        reader.read(buffer, 4);
+        reader.read((char*)&size, 4);
     }
 
     //more assignment
     numOfSamples = size / (header.numChannels * bitsPerSample / 8);
-    duration = (double)numOfSamples / sampleRate;
+    duration = (float)numOfSamples / sampleRate;
 
-    firstSamplePos = reader->tellg();  
+    firstSamplePos = reader.tellg();  
 }
 
 float WAVSound::getSample(int index) const
@@ -112,12 +112,12 @@ float WAVSound::getSample(int index) const
     short sample2 = 0;
     short result;
 
-    reader->seekg(firstSamplePos + index * blockAlign);
-    reader->read((char*)&sample1, bitsPerSample / 8);
+    reader.seekg(firstSamplePos + index * blockAlign);
+    reader.read((char*)&sample1, bitsPerSample / 8);
 
     if (isStereo)
     {
-        reader->read((char*)&sample2, bitsPerSample/8);
+        reader.read((char*)&sample2, bitsPerSample/8);
         result = (sample1 + sample2) / 2;
     }
     else
@@ -126,7 +126,7 @@ float WAVSound::getSample(int index) const
     }
 
 
-    if (reader->fail())
+    if (reader.fail())
     {
         throw std::runtime_error(std::string("Error! Could not read from file: ") + filePath);    //test this
     }

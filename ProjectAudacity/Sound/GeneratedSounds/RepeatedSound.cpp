@@ -18,3 +18,9 @@ float RepeatedSound::getSample(int index) const
     int sampleToGet = index % soundToRepeat->getNumOfSamples();
     return soundToRepeat->getSample(sampleToGet);
 }
+
+
+
+
+//sega se setih za problem che toq Sound* shte sochi kum celiq zvuk, ne samo soundchunka koito e v traka
+//mozhe da go implementirash, mozhe i da go ostavish ne e that big of a deal

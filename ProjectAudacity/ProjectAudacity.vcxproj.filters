@@ -60,6 +60,9 @@
     <ClCompile Include="Track\Track.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Project\Project.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound\Sound.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Track\Track.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Project\Project.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

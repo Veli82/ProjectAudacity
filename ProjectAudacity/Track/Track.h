@@ -4,26 +4,32 @@
 #include "../Sound/Sound.h"
 #include "../Sound/SoundChunk.h"
 
-class Track
+class Track : public Sound
 {
 public:
-	Track();
-	Track(const Track& other);
-	Track& operator=(const Track& other) = delete;
-	~Track();
+	Track(int sampleRate);
+	//Track(const Track& other);
+	//Track& operator=(const Track& other) = delete;			//bukv defaultnite shte svurshat rabota
 
 	void addSound(const Sound& sound);
+	void addSound(const Sound& sound, int startSample);
 
-	float getSample(int index) const;
+	float getSample(int index) const override;
 
-	//operator[] ?
-
-
-	int getSampleRate() const;
+	//operator[] ?	mozhe da e polezen pri user interface-a
 
 	//void writeToFile();
 private:
 	std::vector<SoundChunk> sounds;
-	int sampleRate;
+
+	SoundChunk* findSound(int sampleIndexOnTrack, int& sampleIndexOnSound);
+	const SoundChunk* findSound(int& sampleIndex) const;
 };
 
+
+
+
+
+
+
+//qka ideq, kato pravim effect za celiq track mozhe da mu podadem direktno sounds obekta (napravi mu const ref getter?)
