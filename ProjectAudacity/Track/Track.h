@@ -8,22 +8,27 @@ class Track : public Sound
 {
 public:
 	Track(int sampleRate);
-	//Track(const Track& other);
-	//Track& operator=(const Track& other) = delete;			//bukv defaultnite shte svurshat rabota
 
-	void addSound(const Sound& sound);
-	void addSound(const Sound& sound, int startSample);
+	Track& operator=(const Track& other) = delete;
+
+	void addSound(const Sound& sound);						//append on end
+	void addSound(const Sound& sound, SoundChunk& dest);	//put on top of another SoundChunk
+	void addSound(const Sound& sound, int startSample);		//insert at specific place
 
 	float getSample(int index) const override;
 
-	//operator[] ?	mozhe da e polezen pri user interface-a
+	SoundChunk& operator[](int index);
+	const SoundChunk& operator[](int index) const;
 
 	//void writeToFile();
+
+	std::vector<SoundChunk> getChunks(int startSample, int endSample) const;
 private:
 	std::vector<SoundChunk> sounds;
 
 	SoundChunk* findSound(int sampleIndexOnTrack, int& sampleIndexOnSound);
-	const SoundChunk* findSound(int& sampleIndex) const;
+	const SoundChunk* findSound(int sampleIndexOnTrack, int& sampleIndexOnSound) const;
+	void removeEmptyChunks();
 };
 
 

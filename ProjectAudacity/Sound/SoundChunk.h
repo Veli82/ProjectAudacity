@@ -1,24 +1,14 @@
 	#pragma once
 #include "Sound.h"
 #include <stdexcept>
-#include <cmath>
+#include <utility>
 
 //Proxy class
 class SoundChunk
 {
 public:
-
-	SoundChunk(const Sound& sound)
-		:sound(sound)
-	{
-		this->startSample = 0;
-		this->endSample = sound.getNumOfSamples() - 1;
-		this->numOfSamples = sound.getNumOfSamples();
-	}
-
-
 	SoundChunk(const Sound& sound, int startSample, int endSample)
-		:sound(sound)
+		:sound(&sound)
 	{
 		if (startSample < 0 || endSample < 0 || endSample < startSample || endSample >= sound.getNumOfSamples())
 		{
@@ -29,14 +19,14 @@ public:
 		this->numOfSamples = endSample - startSample + 1;
 	}
 
-	//FIX
-	SoundChunk operator=(const SoundChunk& other)
+	SoundChunk(const Sound& sound)
+		:sound(&sound)
 	{
-		//sound = other.sound;	:(((((
-		this->startSample = other.startSample;
-		this->endSample = other.endSample;
-		this->numOfSamples = other.numOfSamples;
+		startSample = 0;
+		endSample = sound.getNumOfSamples() - 1;
+		numOfSamples = sound.getNumOfSamples();
 	}
+
 
 	float getSample(int index) const
 	{
@@ -44,7 +34,7 @@ public:
 		{
 			throw std::runtime_error("Invalid index passed when trying to get a sound sample!");
 		}
-		return sound.getSample(startSample + index);
+		return sound->getSample(startSample + index);
 	}
 
 	int getNumOfSamples() const
@@ -52,21 +42,42 @@ public:
 		return numOfSamples;
 	}
 
+	const Sound* getSound() const
+	{
+		return sound;
+	}
+
+	void setNewSound(const Sound& sound)
+	{
+		this->sound = &sound;
+		startSample = 0;
+		endSample = sound.getNumOfSamples() - 1;
+		numOfSamples = sound.getNumOfSamples();
+	}
+
 	void setStart(int sampleIndex)
 	{
 		startSample += sampleIndex;
-		numOfSamples += sampleIndex;
+		numOfSamples -= sampleIndex;
 	}
 	void setEnd(int sampleIndex)
 	{
-		numOfSamples -= endSample - startSample + sampleIndex;
-		endSample = startSample + sampleIndex;
+		endSample = startSample + sampleIndex - 1;
+		numOfSamples = endSample + 1 - startSample;
 	}
 
 private:
-	const Sound& sound;		//off napravi go s pointer atp
+	const Sound* sound;
 	int startSample;
 	int endSample;
 	int numOfSamples;
 	//these are indexes, relative to the Sound* sound
+
+	void swap(SoundChunk& other)
+	{
+		std::swap(sound, other.sound);
+		std::swap(startSample, other.startSample);
+		std::swap(endSample, other.endSample);
+		std::swap(numOfSamples, other.numOfSamples);
+	}
 };
