@@ -1,24 +1,12 @@
 #include "WAVSound.h"
+#include "WAVHeader.h"
+
 #include <cstring>
 #include <iostream> //mahni posle
 #include <cmath>
 
 //try to split the functionalities into multiple functions!
 
-struct WAVHeader {
-    char riffHeader[4];
-    int fileSize;       
-    char waveHeader[4];
-
-    char fmtHeader[4];
-    int fmtChunkSize;
-    short audioFormat;
-    short numChannels;
-    int sampleRate; 
-    int byteRate;
-    short blockAlign;
-    short bitsPerSample;
-};
 
 //for debug
 void print(std::ifstream& reader, int size)

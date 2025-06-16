@@ -17,10 +17,11 @@ public:
 
 	float getSample(int index) const override;
 
+	void writeToFile(const char* filename) const;
+	void writeToFileTest(float* arr) const;
+
 	SoundChunk& operator[](int index);
 	const SoundChunk& operator[](int index) const;
-
-	//void writeToFile();
 
 	std::vector<SoundChunk> getChunks(int startSample, int endSample) const;
 private:
@@ -29,6 +30,7 @@ private:
 	SoundChunk* findSound(int sampleIndexOnTrack, int& sampleIndexOnSound);
 	const SoundChunk* findSound(int sampleIndexOnTrack, int& sampleIndexOnSound) const;
 	void removeEmptyChunks();
+	void writeWavHeader(std::ofstream& ofs) const;
 };
 
 

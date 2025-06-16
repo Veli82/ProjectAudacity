@@ -1,5 +1,17 @@
-#include "Track.h"
 #include <cassert>
+#include <fstream>
+#include <iostream>	//mahni posle
+#include <cstring>
+
+#pragma warning (disable : 4996)
+
+#include "Track.h"
+#include "../Sound/FileSounds/WAVHeader.h"
+#include "../Utils.h"
+
+//settings for exporting the track, implementation for other values could be made in the future.
+short numOfChannels = 1;
+short bitsPerSample = 16;
 
 Track::Track(int sampleRate)
     :Sound(0, sampleRate)
@@ -69,6 +81,72 @@ float Track::getSample(int sampleIndexOnTrack) const
     validateIndex(sampleIndexOnTrack);
 	int sampleIndexOnSound = 0;
 	return findSound(sampleIndexOnTrack, sampleIndexOnSound)->getSample(sampleIndexOnSound);
+}
+
+void Track::writeWavHeader(std::ofstream& ofs) const
+{
+	int subchunk2Size = numOfSamples * numOfChannels * (bitsPerSample / 8);
+	WAVHeader header;
+	strncpy(header.riffHeader, "RIFF", 4);
+	header.fileSize = 36 + subchunk2Size;
+	strncpy(header.waveHeader, "WAVE", 4);
+	strncpy(header.fmtHeader, "fmt ", 4);
+	header.fmtChunkSize = 16;
+	header.audioFormat = 1;
+	header.numChannels = numOfChannels;
+	header.sampleRate = sampleRate;
+	header.byteRate = sampleRate * numOfChannels * (bitsPerSample / 8);
+	header.blockAlign = numOfChannels * (bitsPerSample / 8);
+	header.bitsPerSample = bitsPerSample;
+
+	assert(sizeof(header) == 36);
+		
+	char subchunk2Header[4];
+	strncpy(subchunk2Header, "data", 4);
+
+	ofs.write((const char*)&header, sizeof(header));
+	ofs.write((const char*)&subchunk2Header, sizeof(subchunk2Header));
+	ofs.write((const char*)&subchunk2Size, sizeof(subchunk2Size));
+}
+
+void Track::writeToFile(const char* filename) const
+{
+	std::ofstream ofs(filename, std::ios::binary);
+	if (!ofs.is_open())
+	{
+		throw std::runtime_error("could not open file for writing");
+	}
+
+	writeWavHeader(ofs);
+
+	for (const SoundChunk& chunk : sounds)
+	{
+		int chunkLength = chunk.getNumOfSamples();
+		for (int i = 0; i < chunkLength; i++)
+		{
+			float flSample = clamp(chunk.getSample(i),-1.0f,1.0f);
+			short shSample = (short)(std::round(flSample * 32767.0f));
+			ofs.write((const char*)&shSample, sizeof(shSample));
+		}
+	}
+	if (ofs.fail())
+	{
+		throw std::runtime_error("Encountered an error when exporting the file!");
+	}
+}
+
+void Track::writeToFileTest(float* arr) const
+{
+	int count = 0;
+	for (const SoundChunk& chunk : sounds)
+	{
+		int chunkLength = chunk.getNumOfSamples();
+		for (int i = 0; i < chunkLength; i++)
+		{
+			arr[count] = chunk.getSample(i);
+			count++;
+		}
+	}
 }
 
 SoundChunk& Track::operator[](int index)

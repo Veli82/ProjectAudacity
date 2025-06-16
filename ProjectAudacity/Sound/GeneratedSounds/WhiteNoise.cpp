@@ -15,6 +15,6 @@ float WhiteNoise::getSample(int index) const
 {
     validateIndex(index);
     float rand = float(std::rand()) / RAND_MAX;
-    return 2.0f * rand - 1.0f;
+    return amplitude * (2.0f * rand - 1.0f);
 }
 

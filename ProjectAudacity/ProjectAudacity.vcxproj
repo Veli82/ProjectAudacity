@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Project\Project.h" />
+    <ClInclude Include="Sound\FileSounds\WAVHeader.h" />
     <ClInclude Include="Sound\GeneratedSounds\RepeatedSound.h" />
     <ClInclude Include="Sound\FileSounds\AIFFSound.h" />
     <ClInclude Include="Sound\EffectSounds\Amplify.h" />
