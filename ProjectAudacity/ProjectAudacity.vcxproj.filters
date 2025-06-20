@@ -69,6 +69,9 @@
     <ClCompile Include="Sound\FileSounds\WAVHeader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sound\readAndWriteUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sound\Sound.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sound\EffectSounds\Crossfade.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\readAndWriteUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -139,6 +139,7 @@
     <ClCompile Include="Sound\GeneratedSounds\GeneratedSound.cpp" />
     <ClCompile Include="Sound\EffectSounds\HighPassFilter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sound\readAndWriteUtils.cpp" />
     <ClCompile Include="Sound\Silence\Silence.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
     <ClCompile Include="Sound\GeneratedSounds\Tone.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Track\Track.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sound\readAndWriteUtils.h" />
     <ClInclude Include="Sound\EffectSounds\Crossfade.h" />
     <ClInclude Include="Project\Project.h" />
     <ClInclude Include="Sound\FileSounds\WAVHeader.h" />

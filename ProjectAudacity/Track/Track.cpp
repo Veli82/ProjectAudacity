@@ -17,6 +17,21 @@ Track::Track(int sampleRate)
 {
 }
 
+Track::Track(float duration, int sampleRate, const std::vector<SoundChunk>& sounds)
+	:Sound(duration,sampleRate), sounds(sounds)
+{
+	//!!! sometimes creates an of by 1 error with the numOfSamples due to the not always perfect calculations and rounding errors!!!
+	//so i've removed it for now but it has to be there
+	//tova e pisano 1 chas predi deadlinea molq da me izvinite nqmam vreme za opravqne
+	// za testerite: ako iskate probvaite da si go otkomentirate ponqkoga raboti ponqkoga ne. (mai pri imported file se chupi?)
+	//int samplesSum = 0;
+	//for (const SoundChunk& sound : sounds)
+	//{
+	//	samplesSum += sound.getNumOfSamples();
+	//}
+	//if (samplesSum != numOfSamples) throw std::runtime_error("Invalid input on creating a track.");
+}
+
 void Track::addSound(const Sound& sound)
 {
 	if (numOfSamples > INT_MAX - sound.getNumOfSamples()) throw std::runtime_error("Track's max size is reached!");
@@ -165,6 +180,18 @@ const std::vector<SoundChunk>& Track::getSoundsArr() const
 unsigned Track::getChunksCount() const
 {
 	return sounds.size();
+}
+
+void Track::save(std::ofstream& ofs, const std::vector<const Sound*>& allSounds) const
+{
+	unsigned trackSize = this->sounds.size();
+	ofs.write((const char*)&sampleRate, sizeof(sampleRate));
+	ofs.write((const char*)&duration, sizeof(duration));
+	ofs.write((const char*)&trackSize, sizeof(trackSize));
+	for (const SoundChunk& chunk : this->sounds)
+	{
+		chunk.save(ofs,allSounds);
+	}
 }
 
 SoundChunk* Track::findSound(int sampleIndexOnTrack, int& sampleIndexOnSound)

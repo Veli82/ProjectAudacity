@@ -1,4 +1,5 @@
 #include "RepeatedSound.h"
+#include "../readAndWriteUtils.h"
 
 RepeatedSound::RepeatedSound(int sampleRate,const SoundChunk& soundToRepeat, int timesRepeated)
     :GeneratedSound(0, sampleRate), soundToRepeat(soundToRepeat)
@@ -16,8 +17,11 @@ float RepeatedSound::getSample(int index) const
     return soundToRepeat.getSample(sampleToGet);
 }
 
-
-
-
-//sega se setih za problem che toq Sound* shte sochi kum celiq zvuk, ne samo soundchunka koito e v traka
-//mozhe da go implementirash, mozhe i da go ostavish ne e that big of a deal
+void RepeatedSound::save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const
+{
+    SoundType type = SoundType::RepeatedSound;
+    ofs.write((const char*)&type, sizeof(type));
+    ofs.write((const char*)&sampleRate, sizeof(sampleRate));
+    soundToRepeat.save(ofs, sounds);
+    ofs.write((const char*)&timesRepeated, sizeof(timesRepeated));
+}

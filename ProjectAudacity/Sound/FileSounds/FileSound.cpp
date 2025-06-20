@@ -42,3 +42,16 @@ unsigned FileSound::getBitsPerSample() const
 {
     return bitsPerSample;
 }
+
+void FileSound::save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const
+{
+    unsigned length = filePath.size();
+    ofs.write((const char*)(&length), sizeof(length));
+    ofs.write(filePath.c_str(), length);
+}
+
+//read
+//size_t len;
+//ifs.read((char*)(&len), sizeof(len));
+//std::string filePath(len, '\0');
+//ifs.read(&filePath[0], len);

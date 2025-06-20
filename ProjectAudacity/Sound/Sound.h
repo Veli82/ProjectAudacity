@@ -1,4 +1,7 @@
 #pragma once
+#include <fstream>
+#include <vector>
+
 class Sound
 {
 public:
@@ -7,8 +10,7 @@ public:
 
 	virtual float getSample(int index) const = 0;
 
-	//write to file
-	//read from file
+	virtual void save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const = 0;	//save
 	
 	int getSampleRate() const;
 	float getDuration() const;

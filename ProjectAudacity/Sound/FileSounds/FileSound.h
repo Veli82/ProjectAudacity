@@ -16,6 +16,7 @@ public:
 	unsigned getBlockAlign() const;
 	unsigned getBitsPerSample() const;
 
+	void save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const override;
 
 protected:
 	std::string filePath;

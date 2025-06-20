@@ -10,6 +10,17 @@ float EffectSound::getSample(int index) const
 	return applyEffect(getSampleFromBase(index));
 }
 
+void EffectSound::save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const
+{
+	Sound::save(ofs, sounds);
+	int chunkCount = baseSounds.size();
+	ofs.write((const char*)&chunkCount, sizeof(chunkCount));
+	for (const SoundChunk& chunk : baseSounds)
+	{
+		chunk.save(ofs, sounds);
+	}
+}
+
 float EffectSound::getSampleFromBase(int index) const
 {
 	//index should always be valid

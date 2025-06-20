@@ -1,12 +1,17 @@
 #include "Sound.h"
 #include <stdexcept>
-#include <cmath>
 
 Sound::Sound(float duration, int sampleRate)
 {
 	setSampleRate(sampleRate);
 	setDuration(duration);
 	setNumOfSamples(duration * sampleRate);
+}
+
+void Sound::save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const
+{
+	ofs.write((const char*)&duration, sizeof(duration));
+	ofs.write((const char*)&sampleRate, sizeof(sampleRate));
 }
 
 int Sound::getSampleRate() const

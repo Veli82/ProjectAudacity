@@ -14,6 +14,7 @@
 #include "../Sound/GeneratedSounds/WhiteNoise.h"
 #include "../Sound/GeneratedSounds/Chirp.h"
 #include "../Sound/GeneratedSounds/RepeatedSound.h"
+#include "../Sound/readAndWriteUtils.h"
 
 #include "Project.h"
 
@@ -32,6 +33,36 @@ Project::Project(int sampleRate, int numOfTracks)
 	for (int i = 0; i < numOfTracks; i++)
 	{
 		tracks.push_back(Track(sampleRate));
+	}
+}
+
+Project::Project(std::ifstream& ifs)
+{
+	ifs.read((char*)&sampleRate, sizeof(sampleRate));
+	unsigned allSoundsSize;
+	ifs.read((char*)&allSoundsSize, sizeof(allSoundsSize));
+	try
+	{
+		for (int i = 0; i < allSoundsSize; i++)
+		{
+			Sound* sound = readFromFileSoundFactory(ifs, allSounds);
+			allSounds.push_back(sound);
+		}
+		unsigned tracksCount;
+		ifs.read((char*)&tracksCount, sizeof(tracksCount));
+		for (int i = 0; i < tracksCount; i++)
+		{
+			Track track = readFromFileTrack(ifs, allSounds);
+			tracks.push_back(track);
+		}
+	}
+	catch (...)
+	{
+		for (int i = 0; i < allSounds.size(); i++)
+		{
+			delete allSounds[i];
+			throw;
+		}
 	}
 }
 
@@ -173,6 +204,33 @@ void Project::exportProject(const char* filename) const
 	}
 }
 
+void Project::saveProject(const char* filename) const
+{
+	std::ofstream ofs(filename, std::ios::binary);
+	if (!ofs.is_open())
+	{
+		throw std::runtime_error("Cannot open file for writing");
+	}
+
+	ofs.write((const char*)&sampleRate, sizeof(sampleRate));
+	unsigned allSoundsSize = allSounds.size();
+	ofs.write((const char*)&allSoundsSize, sizeof(allSoundsSize));
+	for (const Sound* sound : allSounds)
+	{
+		sound->save(ofs,allSounds);
+	}
+	unsigned allTracksSize = tracks.size();
+	ofs.write((const char*)&allTracksSize, sizeof(allTracksSize));
+	for (const Track& track : tracks)
+	{
+		track.save(ofs, allSounds);
+	}
+	if (ofs.fail())
+	{
+		throw std::runtime_error("Could not save project to file!");
+	}
+}
+
 
 //UI below
 void printInfo()
@@ -263,7 +321,7 @@ void Project::runUI()
 			}
 			case 's':
 			case 'S':
-				//saveProject();
+				saveProjectUI();
 				std::cout << "\nProject saved! \n";
 				break;
 			case 'q':
@@ -283,6 +341,7 @@ void Project::runUI()
 
 	}
 }
+
 
 int Project::askUserForTrackIndex() const
 {
@@ -414,6 +473,21 @@ void Project::exportUI() const
 			break;
 		}
 	}
+}
+
+void Project::saveProjectUI() const
+{
+	std::cout << "\nEnter a name for the file to save the project (with filepath if needed): ";
+	std::string fileName;
+	std::cin >> fileName;
+
+	while (fileName.find(".dat", fileName.size() - 4) == std::string::npos)
+	{
+		std::cout << "\nMake sure the name ends in .dat and try again: \n";
+		std::cin.ignore(10000, '\n');
+		std::cin >> fileName;
+	}
+	saveProject(fileName.c_str());
 }
 
 void Project::checkSampleRate(const Sound* sound)

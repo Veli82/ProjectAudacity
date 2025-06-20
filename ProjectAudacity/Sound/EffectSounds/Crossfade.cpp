@@ -8,6 +8,15 @@ Crossfade::Crossfade(float duration, int sampleRate, const std::vector<SoundChun
 	if (soundToCrossfade.getNumOfSamples() != numOfSamples) throw std::runtime_error("Error when creating crossfade effect.");
 }
 
+void Crossfade::save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const
+{
+    SoundType type = SoundType::Crossfade;
+    ofs.write((const char*)&type, sizeof(type));
+    EffectSound::save(ofs, sounds);
+    soundToCrossfade.save(ofs, sounds);
+    ofs.write((const char*)&fadeInNOut, sizeof(fadeInNOut));
+}
+
 float Crossfade::getSample(int index) const
 {
     validateIndex(index);

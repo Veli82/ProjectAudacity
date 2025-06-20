@@ -5,6 +5,11 @@ GeneratedSound::GeneratedSound(float duration, int sampleRate)
 	:Sound(duration, sampleRate)
 { }
 
+void GeneratedSound::save(std::ofstream & ofs, const std::vector<const Sound*>&sounds) const
+{
+    Sound::save(ofs, sounds);
+}
+
 void GeneratedSound::setAmplitude(float& destination, float amplitude)
 {
     if (amplitude < 0.0f || amplitude > 1.0f)

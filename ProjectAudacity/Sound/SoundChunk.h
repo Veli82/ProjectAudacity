@@ -1,7 +1,7 @@
 #pragma once
 #include "Sound.h"
 #include <stdexcept>
-#include <utility>
+#include "readAndWriteUtils.h"
 
 //Proxy class
 class SoundChunk
@@ -66,20 +66,18 @@ public:
 		numOfSamples = endSample + 1 - startSample;
 	}
 
+	void save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const
+	{
+		int index = getIndexOfSound(sounds,sound);
+		ofs.write((const char*)&index, sizeof(index));
+		ofs.write((const char*)&startSample, sizeof(startSample));
+		ofs.write((const char*)&endSample, sizeof(endSample));
+	}
+
 private:
 	const Sound* sound;
 	int startSample;
 	int endSample;
 	int numOfSamples;
 	//these are indexes, relative to the Sound* sound
-
-
-	//why did i even write that?
-	//void swap(SoundChunk& other)
-	//{
-	//	std::swap(sound, other.sound);
-	//	std::swap(startSample, other.startSample);
-	//	std::swap(endSample, other.endSample);
-	//	std::swap(numOfSamples, other.numOfSamples);
-	//}
 };

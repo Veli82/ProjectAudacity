@@ -9,6 +9,14 @@ Amplify::Amplify(float duration, int sampleRate, const std::vector<SoundChunk>& 
     if (decibels < -30 || decibels > 30) throw std::runtime_error("Invalid input for decibles when making Amplify");
 }
 
+void Amplify::save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const
+{
+    SoundType type = SoundType::Amplify;
+    ofs.write((const char*)&type, sizeof(type));
+    EffectSound::save(ofs, sounds);
+    ofs.write((const char*)&ampDecibels, sizeof(ampDecibels));
+}
+
 float Amplify::applyEffect(float sample) const
 {
     //applies clipping

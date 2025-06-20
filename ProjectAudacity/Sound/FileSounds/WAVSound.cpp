@@ -1,5 +1,6 @@
 #include "WAVSound.h"
 #include "WAVHeader.h"
+#include "../readAndWriteUtils.h"
 
 #include <cstring>
 #include <cmath>
@@ -51,6 +52,13 @@ WAVSound::WAVSound(const std::string& filePath)
     duration = (float)numOfSamples / sampleRate;
 
     firstSamplePos = reader.tellg();  
+}
+
+void WAVSound::save(std::ofstream& ofs, const std::vector<const Sound*>& sounds) const
+{
+    SoundType type = SoundType::WAVSound;
+    ofs.write((const char*)&type, sizeof(type));
+    FileSound::save(ofs, sounds);
 }
 
 float WAVSound::getSample(int index) const
