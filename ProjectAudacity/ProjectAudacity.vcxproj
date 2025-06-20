@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sound\EffectSounds\Crossfade.cpp" />
     <ClCompile Include="Project\Project.cpp" />
+    <ClCompile Include="Sound\FileSounds\WAVHeader.cpp" />
     <ClCompile Include="Sound\GeneratedSounds\RepeatedSound.cpp" />
     <ClCompile Include="Sound\FileSounds\AIFFSound.cpp" />
     <ClCompile Include="Sound\EffectSounds\Amplify.cpp" />
@@ -145,6 +147,7 @@
     <ClCompile Include="Track\Track.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sound\EffectSounds\Crossfade.h" />
     <ClInclude Include="Project\Project.h" />
     <ClInclude Include="Sound\FileSounds\WAVHeader.h" />
     <ClInclude Include="Sound\GeneratedSounds\RepeatedSound.h" />
@@ -163,9 +166,6 @@
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Sound\FileSounds\WAVSound.h" />
     <ClInclude Include="Sound\GeneratedSounds\WhiteNoise.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\test.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

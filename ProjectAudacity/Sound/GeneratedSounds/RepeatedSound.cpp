@@ -1,22 +1,19 @@
 #include "RepeatedSound.h"
 
-RepeatedSound::RepeatedSound(int sampleRate, Sound* soundToRepeat, int timesRepeated)
-    :GeneratedSound(0, sampleRate)
+RepeatedSound::RepeatedSound(int sampleRate,const SoundChunk& soundToRepeat, int timesRepeated)
+    :GeneratedSound(0, sampleRate), soundToRepeat(soundToRepeat)
 {
-    //make validation!
-    this->soundToRepeat = soundToRepeat;
+    if (timesRepeated <= 0) throw std::runtime_error("invalid input on number of times repeated.");
     this->timesRepeated = timesRepeated;
-    //po skoro izchisli numOfSamples * timesRepeated i ot tam izchisli duration za da e po tochno! (pravih integer umnozhenie, persisiona na duration e vse taq)
-    duration = soundToRepeat->getDuration() * timesRepeated; //make getter for duration!
-    numOfSamples;// = ... TODO
-
+    numOfSamples = soundToRepeat.getNumOfSamples() * timesRepeated;
+    duration = (float)numOfSamples / sampleRate;
 }
 
 float RepeatedSound::getSample(int index) const
 { 
     validateIndex(index);
-    int sampleToGet = index % soundToRepeat->getNumOfSamples();
-    return soundToRepeat->getSample(sampleToGet);
+    int sampleToGet = index % soundToRepeat.getNumOfSamples();
+    return soundToRepeat.getSample(sampleToGet);
 }
 
 

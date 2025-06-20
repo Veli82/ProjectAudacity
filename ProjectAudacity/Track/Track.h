@@ -24,19 +24,13 @@ public:
 	const SoundChunk& operator[](int index) const;
 
 	std::vector<SoundChunk> getChunks(int startSample, int endSample) const;
+	const std::vector<SoundChunk>& getSoundsArr() const;
+	unsigned getChunksCount() const;
+
 private:
 	std::vector<SoundChunk> sounds;
 
 	SoundChunk* findSound(int sampleIndexOnTrack, int& sampleIndexOnSound);
 	const SoundChunk* findSound(int sampleIndexOnTrack, int& sampleIndexOnSound) const;
 	void removeEmptyChunks();
-	void writeWavHeader(std::ofstream& ofs) const;
 };
-
-
-
-
-
-
-
-//qka ideq, kato pravim effect za celiq track mozhe da mu podadem direktno sounds obekta (napravi mu const ref getter?)

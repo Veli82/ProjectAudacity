@@ -1,4 +1,4 @@
-	#pragma once
+#pragma once
 #include "Sound.h"
 #include <stdexcept>
 #include <utility>
@@ -73,11 +73,13 @@ private:
 	int numOfSamples;
 	//these are indexes, relative to the Sound* sound
 
-	void swap(SoundChunk& other)
-	{
-		std::swap(sound, other.sound);
-		std::swap(startSample, other.startSample);
-		std::swap(endSample, other.endSample);
-		std::swap(numOfSamples, other.numOfSamples);
-	}
+
+	//why did i even write that?
+	//void swap(SoundChunk& other)
+	//{
+	//	std::swap(sound, other.sound);
+	//	std::swap(startSample, other.startSample);
+	//	std::swap(endSample, other.endSample);
+	//	std::swap(numOfSamples, other.numOfSamples);
+	//}
 };

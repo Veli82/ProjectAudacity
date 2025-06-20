@@ -1,13 +1,13 @@
 #include "FileSound.h"
 #include <stdexcept>
 
-FileSound::FileSound(const std::string& filePath)   //there cant be objects from this abstract class so the error shouldnt be worrying
-    :Sound(0, 0), filePath(filePath)
+FileSound::FileSound(const std::string& filePath)   //there cant be objects from this abstract class so the warning shouldn't be worrying
+    :Sound(0, 1), filePath(filePath)
 {
     reader.open(filePath, std::ios::binary);
     if (!reader.is_open())
     {
-        throw std::runtime_error("Could not open file!");
+        throw std::runtime_error("Could not open that file!");
     }
 
 }
@@ -19,7 +19,7 @@ FileSound::FileSound(const FileSound& other)
     reader.open(filePath, std::ios::binary);
     if (!reader.is_open())
     {
-        throw std::runtime_error("Could not open file!");
+        throw std::runtime_error("Could not open that file!");
     }
 }
 

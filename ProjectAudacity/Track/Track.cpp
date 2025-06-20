@@ -1,6 +1,5 @@
 #include <cassert>
 #include <fstream>
-#include <iostream>	//mahni posle
 #include <cstring>
 
 #pragma warning (disable : 4996)
@@ -10,8 +9,8 @@
 #include "../Utils.h"
 
 //settings for exporting the track, implementation for other values could be made in the future.
-short numOfChannels = 1;
-short bitsPerSample = 16;
+static short numOfChannels = 1;
+static short bitsPerSample = 16;
 
 Track::Track(int sampleRate)
     :Sound(0, sampleRate)
@@ -20,10 +19,10 @@ Track::Track(int sampleRate)
 
 void Track::addSound(const Sound& sound)
 {
+	if (numOfSamples > INT_MAX - sound.getNumOfSamples()) throw std::runtime_error("Track's max size is reached!");
+	setNumOfSamplesAndDur(numOfSamples + sound.getNumOfSamples());
 	SoundChunk chunk(sound);
 	sounds.push_back(chunk);
-	numOfSamples += sound.getNumOfSamples();
-	duration += sound.getDuration();
 }
 
 void Track::addSound(const Sound& sound, SoundChunk& dest)
@@ -36,7 +35,7 @@ void Track::addSound(const Sound& sound, SoundChunk& dest)
 void Track::addSound(const Sound& sound, int startSampleOnTrack)		//kakvo shte stane ako se dobavi track v track?? (bukv mozhe i da raboti)
 {
 	assert(startSampleOnTrack < numOfSamples);	//should be validated from outside
-
+	if (startSampleOnTrack - 1 > INT_MAX - sound.getNumOfSamples()) throw std::runtime_error("Track's max size is reached!");
 	int endSampleOnTrack = startSampleOnTrack + sound.getNumOfSamples() - 1;
 	int startSampleOnSound;
 	int endSampleOnSound;
@@ -62,12 +61,10 @@ void Track::addSound(const Sound& sound, int startSampleOnTrack)		//kakvo shte s
 	}
 	else if (firstChunk && !lastChunk)
 	{
+		setNumOfSamplesAndDur(endSampleOnTrack + 1);
 		sounds.erase(firstChunkPos + 1, sounds.end());
 		sounds.push_back(sound);
-		numOfSamples = endSampleOnTrack + 1;
-		duration = (float)numOfSamples / sampleRate;
 	}
-	//else if (!firstChunk && !lastChunk)		(the silence should get handled outside)
 	else
 	{
 		throw std::runtime_error("Invalid data in Track::addSound(), we should not be here");
@@ -83,48 +80,25 @@ float Track::getSample(int sampleIndexOnTrack) const
 	return findSound(sampleIndexOnTrack, sampleIndexOnSound)->getSample(sampleIndexOnSound);
 }
 
-void Track::writeWavHeader(std::ofstream& ofs) const
-{
-	int subchunk2Size = numOfSamples * numOfChannels * (bitsPerSample / 8);
-	WAVHeader header;
-	strncpy(header.riffHeader, "RIFF", 4);
-	header.fileSize = 36 + subchunk2Size;
-	strncpy(header.waveHeader, "WAVE", 4);
-	strncpy(header.fmtHeader, "fmt ", 4);
-	header.fmtChunkSize = 16;
-	header.audioFormat = 1;
-	header.numChannels = numOfChannels;
-	header.sampleRate = sampleRate;
-	header.byteRate = sampleRate * numOfChannels * (bitsPerSample / 8);
-	header.blockAlign = numOfChannels * (bitsPerSample / 8);
-	header.bitsPerSample = bitsPerSample;
-
-	assert(sizeof(header) == 36);
-		
-	char subchunk2Header[4];
-	strncpy(subchunk2Header, "data", 4);
-
-	ofs.write((const char*)&header, sizeof(header));
-	ofs.write((const char*)&subchunk2Header, sizeof(subchunk2Header));
-	ofs.write((const char*)&subchunk2Size, sizeof(subchunk2Size));
-}
 
 void Track::writeToFile(const char* filename) const
 {
+	//a check needs to be made so that the file that written to isnt one of the others that are readed atm
+	//mby just make an array of strings and save every ifstream filepath, and when you create an ofstream check for a match in the array
 	std::ofstream ofs(filename, std::ios::binary);
 	if (!ofs.is_open())
 	{
 		throw std::runtime_error("could not open file for writing");
 	}
 
-	writeWavHeader(ofs);
+	writeWavHeader(ofs,numOfSamples,sampleRate,numOfChannels,bitsPerSample);
 
 	for (const SoundChunk& chunk : sounds)
 	{
 		int chunkLength = chunk.getNumOfSamples();
 		for (int i = 0; i < chunkLength; i++)
 		{
-			float flSample = clamp(chunk.getSample(i),-1.0f,1.0f);
+			float flSample = chunk.getSample(i);
 			short shSample = (short)(std::round(flSample * 32767.0f));
 			ofs.write((const char*)&shSample, sizeof(shSample));
 		}
@@ -161,8 +135,10 @@ const SoundChunk& Track::operator[](int index) const
 	return sounds[index];
 }
 
+
 std::vector<SoundChunk> Track::getChunks(int startSampleOnTrack, int endSampleOnTrack) const
 {
+	if (endSampleOnTrack >= numOfSamples || startSampleOnTrack >= endSampleOnTrack) throw std::runtime_error("invalid input on trying to get chunks");
 	std::vector<SoundChunk> chunks;
 	int startSampleOnSound;
 	int endSampleOnSound;
@@ -179,6 +155,16 @@ std::vector<SoundChunk> Track::getChunks(int startSampleOnTrack, int endSampleOn
 	chunks[chunks.size() - 1].setEnd(endSampleOnSound);
 
 	return chunks;
+}
+
+const std::vector<SoundChunk>& Track::getSoundsArr() const
+{
+	return sounds;
+}
+
+unsigned Track::getChunksCount() const
+{
+	return sounds.size();
 }
 
 SoundChunk* Track::findSound(int sampleIndexOnTrack, int& sampleIndexOnSound)
