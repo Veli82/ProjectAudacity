@@ -36,18 +36,10 @@ void Sound::setDuration(float duration)
 		throw std::runtime_error("Passed invalid Sound input");
 	}
 	this->duration = duration;
+	this->numOfSamples = duration * sampleRate;
 }
 
 void Sound::setNumOfSamples(int numOfSamples)
-{
-	if (numOfSamples < 0)
-	{
-		throw std::runtime_error("Passed invalid Sound input");
-	}
-	this->numOfSamples = numOfSamples;
-}
-
-void Sound::setNumOfSamplesAndDur(int numOfSamples)
 {
 	float dur = (float)numOfSamples / sampleRate;
 	if (numOfSamples < 0 || dur < 0)
@@ -58,8 +50,10 @@ void Sound::setNumOfSamplesAndDur(int numOfSamples)
 	this->duration = dur;
 }
 
+
 void Sound::setSampleRate(int sampleRate)
 {
+	//not quite sure what behaviour do I want for this
 	if (sampleRate <= 0)
 	{
 		throw std::runtime_error("Passed invalid Sound input");

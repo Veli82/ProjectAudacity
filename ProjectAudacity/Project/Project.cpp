@@ -117,7 +117,7 @@ void Project::addSoundToTrack(const Sound* sound, int trackIndex, int startSampl
 	}
 	else	////the sound does not start inside the track
 	{
-		int silenceDur = (startSampleOnTrack - trackNumOfSamples) / (float)sampleRate;
+		float silenceDur = (startSampleOnTrack - trackNumOfSamples) / (float)sampleRate;
 		Sound* silence = new Silence(silenceDur, sampleRate);
 		try
 		{

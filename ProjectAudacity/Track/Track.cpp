@@ -35,7 +35,7 @@ Track::Track(float duration, int sampleRate, const std::vector<SoundChunk>& soun
 void Track::addSound(const Sound& sound)
 {
 	if (numOfSamples > INT_MAX - sound.getNumOfSamples()) throw std::runtime_error("Track's max size is reached!");
-	setNumOfSamplesAndDur(numOfSamples + sound.getNumOfSamples());
+	setNumOfSamples(numOfSamples + sound.getNumOfSamples());
 	SoundChunk chunk(sound);
 	sounds.push_back(chunk);
 }
@@ -76,7 +76,7 @@ void Track::addSound(const Sound& sound, int startSampleOnTrack)		//kakvo shte s
 	}
 	else if (firstChunk && !lastChunk)
 	{
-		setNumOfSamplesAndDur(endSampleOnTrack + 1);
+		setNumOfSamples(endSampleOnTrack + 1);
 		sounds.erase(firstChunkPos + 1, sounds.end());
 		sounds.push_back(sound);
 	}
