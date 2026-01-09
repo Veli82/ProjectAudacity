@@ -1,5 +1,5 @@
 ## ProjectAudacity
-This project was created for the Object-Oriented Programming course, taught by P. Armyanov at the Faculty of Mathematics and Informatics, Sofia University.
+This project was created for the Object-Oriented Programming course, taught by Assoc. Prof. Petar Armyanov at the Faculty of Mathematics and Informatics, Sofia University.
 
 The project is a **software for sound editing**, very similar to and inspired by *Audacity*.
 
